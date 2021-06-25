@@ -2,7 +2,6 @@
 module compl_mult
  #(parameter W = 20)                     
  (
-    input  reset_b,  
     input  clk,      
     input  [W*2-1:0] a, 
     input  [W*2-1:0] b, 

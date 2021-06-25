@@ -23,8 +23,8 @@ module dpd
 	
     u1 dpd_ad0;
 	u1 dpd_ad1;
-	ff #(.W(1)) ff1 (.clk, .reset_b, .d(dpd_adapt), .q(dpd_ad0));
-	ff #(.W(1)) ff2 (.clk, .reset_b, .d(dpd_ad0), 	.q(dpd_ad1));
+	ff #(.W(1)) ff1 (.clk, .d(dpd_adapt), .q(dpd_ad0));
+	ff #(.W(1)) ff2 (.clk, .d(dpd_ad0),   .q(dpd_ad1));
 	
 		
 	u1 start_adapt;
@@ -67,7 +67,7 @@ module dpd
 	
     s20 sig_fit_in_i;
 	s20 sig_fit_in_q;
-	ff #(.W(40)) ff3 (.clk, .reset_b, .d({ss0_i,ss0_q}), .q({sig_fit_in_i,sig_fit_in_q} ));
+	ff #(.W(40)) ff3 (.clk, .d({ss0_i,ss0_q}), .q({sig_fit_in_i,sig_fit_in_q} ));
 	
 
 	
@@ -78,7 +78,6 @@ module dpd
     intf_coef_3_5 yy();	
 	dpd_mem3 dpd_mem3_inst2(
 		.clk	   (clk),
-		.reset_b   (reset_b),
 		.sig_in_i  (sig_fit_in_i),   
 		.sig_in_q  (sig_fit_in_q),   
 		.sig_out_i (sig_dpd_i),
@@ -107,8 +106,7 @@ module dpd
     s20 sig_del_i;
 	s20 sig_del_q;
     delay_rg #(.W(40), .D(DELAY)) delay_rg_inst
-	   (.reset_b (reset_b ),
-		.clk     (clk     ),
+	   (.clk     (clk     ),
 		.data_in (sig_train_all),     
 		.data_out({sig_del_i,sig_del_q}));
 //////////////////////////////////////////////////////////////////
@@ -141,10 +139,10 @@ module dpd
     s20 sig_del_reg_i;
 	s20 sig_del_reg_q;
 	
-	ff #(.W(20)) ff6 (.clk, .reset_b, .d(sig_dpd_i), .q(sig_dpd_reg_i));
-	ff #(.W(20)) ff7 (.clk, .reset_b, .d(sig_dpd_q), .q(sig_dpd_reg_q));
-	ff #(.W(20)) ff8 (.clk, .reset_b, .d(sig_del_i), .q(sig_del_reg_i));
-	ff #(.W(20)) ff9 (.clk, .reset_b, .d(sig_del_q), .q(sig_del_reg_q));
+	ff #(.W(20)) ff6 (.clk, .d(sig_dpd_i), .q(sig_dpd_reg_i));
+	ff #(.W(20)) ff7 (.clk, .d(sig_dpd_q), .q(sig_dpd_reg_q));
+	ff #(.W(20)) ff8 (.clk, .d(sig_del_i), .q(sig_del_reg_i));
+	ff #(.W(20)) ff9 (.clk, .d(sig_del_q), .q(sig_del_reg_q));
 	
 	
 	s20 yy_reg_i [0:14];
@@ -193,7 +191,6 @@ module dpd
 	generate
     for (genvar i=0; i < 15; i++)  begin: mults
         compl_mult #(.W(20)) mult_0( 
-			.reset_b(reset_b), 
 			.clk	(clk), 
 			.a		({yy_reg_i[i],yy_reg_q[i]}), 
 			.b		(fit_comp), 

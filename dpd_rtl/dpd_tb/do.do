@@ -20,9 +20,10 @@ dds_signal_generator.v\
 dpd_tb.sv\
 +incdir+$dir
 
+
 vsim -voptargs=+acc work.dpd_tb
 
-
+#vsim work.dpd_tb
 
 
 
@@ -64,8 +65,6 @@ set s32 "add wave -color Green -analog-interpolated -min -1000000000 -max 100000
 
 {*}$dec dpd_tb/sig_in_i   
 {*}$dec dpd_tb/sig_in_q 
-
-add wave sim:/dpd_tb/dpd_inst/dpd_mem3_inst2/*
 
 
 run 200 us

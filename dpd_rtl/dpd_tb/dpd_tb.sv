@@ -148,8 +148,7 @@ end
 	assign sig_out_i_1 = {sig_out_i_0[16:0], 3'd0};
 	assign sig_out_q_1 = {sig_out_q_0[16:0], 3'd0};
     delay_rg #(.W(40), .D(500)) delay_rg_inst
-	   (.reset_b (reset_b ),
-		.clk     (clk     ),
+	   (.clk     (clk     ),
 		.data_in ({sig_out_i_1,sig_out_q_1}),     
 		.data_out({sig_pa_out_i,sig_pa_out_q}));
 	
@@ -160,7 +159,6 @@ end
 	u20 magn_sig_in;
 	mag_complex mag_complex_inst(
 	    .clk	  (clk),
-		.reset_b  (reset_b),
 		.sig_in_i (sig_in_i),    
 		.sig_in_q (sig_in_q),
 		.magn     (magn_sig_in)  		
@@ -170,7 +168,6 @@ end
 	u20 magn_sig_out;
 	mag_complex mag_complex_inst1(
 	    .clk	  (clk),
-		.reset_b  (reset_b),
 		.sig_in_i (sig_out_i),    
 		.sig_in_q (sig_out_q),
 		.magn     (magn_sig_out)  		
@@ -179,7 +176,6 @@ end
 	u20 magn_sig_pa_out;
 	mag_complex mag_complex_inst2(
 	    .clk	  (clk),
-		.reset_b  (reset_b),
 		.sig_in_i (sig_pa_out_i),    
 		.sig_in_q (sig_pa_out_q),
 		.magn     (magn_sig_pa_out)  		

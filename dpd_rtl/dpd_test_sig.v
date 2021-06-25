@@ -1,6 +1,4 @@
 
-`timescale 1ns / 10ps
-
 
 module dpd_test_sig
    #(parameter W = 16)  
@@ -12,12 +10,8 @@ module dpd_test_sig
 
     reg start_reg0, start_reg1;
 	reg start_read;
-	always @(posedge clk, negedge reset_b)
-	    if (~reset_b) begin
-		    start_reg0 <= 1'd0;
-			start_reg1 <= 1'd0;
-			start_read <= 1'd0;
-	    end else begin
+	always @(posedge clk)
+	    begin
 		    start_reg0 <= start;
 			start_reg1 <= start_reg0;
 			start_read <= start_reg0 & (~start_reg1);
@@ -38,22 +32,16 @@ module dpd_test_sig
 	initial begin 
 	   $readmemb("dpd_sig_train_i.mem", ram_i); 
 	end
-	always @ (posedge clk, negedge reset_b)
-	    if (~reset_b)
-		    sig_i <= {(W){1'b0}};
-	    else
-		    sig_i = ram_i[cnt];	
+	always @ (posedge clk)
+	    sig_i = ram_i[cnt];	
 
 
 	reg [W-1:0] ram_q [0:1023];
 	initial begin 
 	   $readmemb("dpd_sig_train_q.mem", ram_q); 
 	end
-	always @ (posedge clk, negedge reset_b)
-	    if (~reset_b)
-		    sig_q <= {(W){1'b0}};
-	    else
-		    sig_q = ram_q[cnt];	
+	always @ (posedge clk)
+		sig_q = ram_q[cnt];	
 			
 			
 			

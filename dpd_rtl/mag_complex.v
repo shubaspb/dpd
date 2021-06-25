@@ -1,6 +1,5 @@
 
 module mag_complex(
-    input          reset_b,  // reset
     input          clk,      // clock
     input  [19:0]  sig_in_i,   
 	input  [19:0]  sig_in_q, 
@@ -22,11 +21,8 @@ module mag_complex(
 
     reg signed [23:0] s_i_abs;            
     reg signed [23:0] s_q_abs; 
-    always @(posedge clk, negedge reset_b)
-        if (~reset_b) begin
-            s_i_abs <= 24'd0;    
-            s_q_abs <= 24'd0;   
-        end else begin
+    always @(posedge clk)
+        begin
             s_i_abs <= (s_i[23]) ? (-s_i) : s_i;  
             s_q_abs <= (s_q[23]) ? (-s_q) : s_q;    
         end
@@ -36,7 +32,6 @@ module mag_complex(
     wire [23:0] a_rg [0:NUMS-1];
         
     mag_complex_stage  #(.NUM_STAGE(0)) mag_complex_stage_inst0 (
-        .reset_b    (reset_b    ),
         .clk        (clk        ),
         .i_in       (s_i_abs  ),            
         .q_in       (s_q_abs  ),              
@@ -48,7 +43,6 @@ module mag_complex(
     generate
         for (i=1; i<NUMS; i=i+1) begin: cordic_mag_complex
             mag_complex_stage  #(.NUM_STAGE(i)) mag_complex_stage_instn (
-                .reset_b    (reset_b    ),
                 .clk        (clk     ),
                 .i_in       (i_rg[i-1]  ),            
                 .q_in       (q_rg[i-1]  ),              
@@ -63,10 +57,8 @@ module mag_complex(
 
 	wire signed [23:0] norm = 24'sd5093861; //  24'sd6907013;  //
    	reg signed [47:0] mag_norm;
-    always @(posedge clk, negedge reset_b)
- 		if(~reset_b) begin
- 			mag_norm <= 48'd0;
- 		end else begin
+    always @(posedge clk)
+ 		begin
  			mag_norm <= magnitude * norm;
  		end	
 	assign magn = mag_norm[45:26];
