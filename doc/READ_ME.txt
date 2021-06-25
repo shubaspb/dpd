@@ -1,0 +1,2 @@
+- testbench dpd\dpd_rtl\dpd_tb\do.do
+- check testbench results - dpd\dpd_shubin\MAIN_rtl.m 
