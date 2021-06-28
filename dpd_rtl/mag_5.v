@@ -21,29 +21,24 @@ module mag_5(
 
 	reg [39:0] magn_2_full;
     always @(posedge clk)
-		begin
-			magn_2_full <= magn_1*magn_1;
-		end	
+		magn_2_full <= magn_1*magn_1;
+
 	wire [19:0] magn_2 = magn_2_full[38:19]+magn_2_full[18];		
 		
 	reg [19:0] magn_1_del1;
     always @(posedge clk)
-		begin
-			magn_1_del1 <= magn_1;
-		end	
+		magn_1_del1 <= magn_1;
 		
 	reg [39:0] magn_3_full;
     always @(posedge clk)
-		begin
-			magn_3_full <= magn_2*magn_1_del1;		
-		end	
+		magn_3_full <= magn_2*magn_1_del1;		
+
 	wire [19:0] magn_3 = magn_3_full[38:19]+magn_3_full[18];
 	
 	reg [39:0] magn_4_full;
     always @(posedge clk)
-		begin
-			magn_4_full <= magn_2*magn_2;
-		end	
+		magn_4_full <= magn_2*magn_2;
+
 	wire [19:0] magn_4 = magn_4_full[38:19]+magn_4_full[18];
 
     

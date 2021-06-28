@@ -133,7 +133,6 @@ end
 	intf_coef_3_5 yy_pa();
 	dpd_mem3 dpd_mem3_inst(
 		.clk	    (clk),
-		.reset_b    (reset_b),
 		.sig_in_i   (sig_out_i),   
 		.sig_in_q   (sig_out_q),   
 		.sig_out_i  (sig_out_i_0),
@@ -145,8 +144,15 @@ end
 		
     s20 sig_out_i_1;
 	s20 sig_out_q_1;
-	assign sig_out_i_1 = {sig_out_i_0[16:0], 3'd0};
-	assign sig_out_q_1 = {sig_out_q_0[16:0], 3'd0};
+	always_ff @(posedge clk, negedge reset_b)
+	    if (~reset_b) begin 
+			sig_out_i_1 <= 20'd0;
+			sig_out_q_1 <= 20'd0;
+	    end else begin
+			sig_out_i_1 = {sig_out_i_0[16:0], 3'd0};
+			sig_out_q_1 = {sig_out_q_0[16:0], 3'd0};
+	    end
+	
     delay_rg #(.W(40), .D(500)) delay_rg_inst
 	   (.clk     (clk     ),
 		.data_in ({sig_out_i_1,sig_out_q_1}),     

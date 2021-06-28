@@ -3,7 +3,6 @@
 module dpd_mem3
 (
     input      	clk,
-	input reset_b,
     input  s20 	sig_in_i,   
 	input  s20 	sig_in_q, 
 	output s20  sig_out_i,
