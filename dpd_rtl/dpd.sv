@@ -1,26 +1,54 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2020, Dmitrii Shubin
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+// 
+// 1. Redistributions of source code must retain the above copyright notice, this
+//    list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright notice,
+//    this list of conditions and the following disclaimer in the documentation
+//    and/or other materials provided with the distribution.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+// ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+///////////////////////////////////////////////////////////////////////////////////////
 
+// Digital Pre-distortion 
+// LMS adaptation
+// time adaptation = 50 us
+// polinome 5 degree, time memory - 3 cycles
+// must be: Fs > 4*signal_bandwidth , Fs is clk
 
 
 `include "package_dpd.svh"
 
 
 module dpd 
- #(parameter DELAY = 41) 
+	#(parameter DELAY = 41)     // compensation for delay (transceiver + amplifier)
 (
-    input 		clk,
-	input 		reset_b,
-	input 		dpd_adapt,
-    input  s20	sig_in_i,   
-	input  s20	sig_in_q, 
-    input  s20	sig_pa_i,   
-	input  s20	sig_pa_q, 
-	output s20	sig_out_i,
-	output s20	sig_out_q,
-	output u64  la
+    input 		clk,		// clock
+	input 		reset_b,	// reset 
+	input 		dpd_adapt,	// 1 - turn on adaptation, 0 - regular transmission
+    input  s20	sig_in_i,   // signal from fpga, real part
+	input  s20	sig_in_q,   // signal from fpga, image part
+    input  s20	sig_pa_i,   // signal from amplifier, real part   
+	input  s20	sig_pa_q,   // signal from amplifier, image part 
+	output s20	sig_out_i,  // signal to amplifier, real part 
+	output s20	sig_out_q   // signal to amplifier, image part
 );
 
 
-	
+/////////////// Control ///////////////////////////////////////////////////////////	
     u1 dpd_ad0;
 	u1 dpd_ad1;
 	ff #(.W(1)) ff1 (.clk, .d(dpd_adapt), .q(dpd_ad0));
