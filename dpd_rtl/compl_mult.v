@@ -1,8 +1,7 @@
 
 module compl_mult
  #(parameter W = 20)                     
- (
-    input  clk,      
+ (    
     input  [W*2-1:0] a, 
     input  [W*2-1:0] b, 
     output [W*2-1:0] o  

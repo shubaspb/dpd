@@ -78,21 +78,21 @@ module dpd_mem3
 	s20 ad_i [0:14];
 	s20 ad_q [0:14];
 	
-	compl_mult #(.W(20)) m_0  ( .clk(clk), .a(rg0[2]), .b({coeff.i[0 ],coeff.q[0 ]}), .o({ad_i[0 ], ad_q[0 ]}) );	
-	compl_mult #(.W(20)) m_1  ( .clk(clk), .a(rg0[1]), .b({coeff.i[1 ],coeff.q[1 ]}), .o({ad_i[1 ], ad_q[1 ]}) );	
-	compl_mult #(.W(20)) m_2  ( .clk(clk), .a(rg0[0]), .b({coeff.i[2 ],coeff.q[2 ]}), .o({ad_i[2 ], ad_q[2 ]}) );	
-	compl_mult #(.W(20)) m_3  ( .clk(clk), .a(rg1[2]), .b({coeff.i[3 ],coeff.q[3 ]}), .o({ad_i[3 ], ad_q[3 ]}) );	
-	compl_mult #(.W(20)) m_4  ( .clk(clk), .a(rg1[1]), .b({coeff.i[4 ],coeff.q[4 ]}), .o({ad_i[4 ], ad_q[4 ]}) );
-	compl_mult #(.W(20)) m_5  ( .clk(clk), .a(rg1[0]), .b({coeff.i[5 ],coeff.q[5 ]}), .o({ad_i[5 ], ad_q[5 ]}) );
-	compl_mult #(.W(20)) m_6  ( .clk(clk), .a(rg2[2]), .b({coeff.i[6 ],coeff.q[6 ]}), .o({ad_i[6 ], ad_q[6 ]}) );
-	compl_mult #(.W(20)) m_7  ( .clk(clk), .a(rg2[1]), .b({coeff.i[7 ],coeff.q[7 ]}), .o({ad_i[7 ], ad_q[7 ]}) );
-	compl_mult #(.W(20)) m_8  ( .clk(clk), .a(rg2[0]), .b({coeff.i[8 ],coeff.q[8 ]}), .o({ad_i[8 ], ad_q[8 ]}) );
-	compl_mult #(.W(20)) m_9  ( .clk(clk), .a(rg3[2]), .b({coeff.i[9 ],coeff.q[9 ]}), .o({ad_i[9 ], ad_q[9 ]}) );
-	compl_mult #(.W(20)) m_10 ( .clk(clk), .a(rg3[1]), .b({coeff.i[10],coeff.q[10]}), .o({ad_i[10], ad_q[10]}) );
-	compl_mult #(.W(20)) m_11 ( .clk(clk), .a(rg3[0]), .b({coeff.i[11],coeff.q[11]}), .o({ad_i[11], ad_q[11]}) );
-	compl_mult #(.W(20)) m_12 ( .clk(clk), .a(rg4[2]), .b({coeff.i[12],coeff.q[12]}), .o({ad_i[12], ad_q[12]}) );
-	compl_mult #(.W(20)) m_13 ( .clk(clk), .a(rg4[1]), .b({coeff.i[13],coeff.q[13]}), .o({ad_i[13], ad_q[13]}) );
-	compl_mult #(.W(20)) m_14 ( .clk(clk), .a(rg4[0]), .b({coeff.i[14],coeff.q[14]}), .o({ad_i[14], ad_q[14]}) );
+	compl_mult #(.W(20)) m_0  ( .a(rg0[2]), .b({coeff.i[0 ],coeff.q[0 ]}), .o({ad_i[0 ], ad_q[0 ]}) );	
+	compl_mult #(.W(20)) m_1  ( .a(rg0[1]), .b({coeff.i[1 ],coeff.q[1 ]}), .o({ad_i[1 ], ad_q[1 ]}) );	
+	compl_mult #(.W(20)) m_2  ( .a(rg0[0]), .b({coeff.i[2 ],coeff.q[2 ]}), .o({ad_i[2 ], ad_q[2 ]}) );	
+	compl_mult #(.W(20)) m_3  ( .a(rg1[2]), .b({coeff.i[3 ],coeff.q[3 ]}), .o({ad_i[3 ], ad_q[3 ]}) );	
+	compl_mult #(.W(20)) m_4  ( .a(rg1[1]), .b({coeff.i[4 ],coeff.q[4 ]}), .o({ad_i[4 ], ad_q[4 ]}) );
+	compl_mult #(.W(20)) m_5  ( .a(rg1[0]), .b({coeff.i[5 ],coeff.q[5 ]}), .o({ad_i[5 ], ad_q[5 ]}) );
+	compl_mult #(.W(20)) m_6  ( .a(rg2[2]), .b({coeff.i[6 ],coeff.q[6 ]}), .o({ad_i[6 ], ad_q[6 ]}) );
+	compl_mult #(.W(20)) m_7  ( .a(rg2[1]), .b({coeff.i[7 ],coeff.q[7 ]}), .o({ad_i[7 ], ad_q[7 ]}) );
+	compl_mult #(.W(20)) m_8  ( .a(rg2[0]), .b({coeff.i[8 ],coeff.q[8 ]}), .o({ad_i[8 ], ad_q[8 ]}) );
+	compl_mult #(.W(20)) m_9  ( .a(rg3[2]), .b({coeff.i[9 ],coeff.q[9 ]}), .o({ad_i[9 ], ad_q[9 ]}) );
+	compl_mult #(.W(20)) m_10 ( .a(rg3[1]), .b({coeff.i[10],coeff.q[10]}), .o({ad_i[10], ad_q[10]}) );
+	compl_mult #(.W(20)) m_11 ( .a(rg3[0]), .b({coeff.i[11],coeff.q[11]}), .o({ad_i[11], ad_q[11]}) );
+	compl_mult #(.W(20)) m_12 ( .a(rg4[2]), .b({coeff.i[12],coeff.q[12]}), .o({ad_i[12], ad_q[12]}) );
+	compl_mult #(.W(20)) m_13 ( .a(rg4[1]), .b({coeff.i[13],coeff.q[13]}), .o({ad_i[13], ad_q[13]}) );
+	compl_mult #(.W(20)) m_14 ( .a(rg4[0]), .b({coeff.i[14],coeff.q[14]}), .o({ad_i[14], ad_q[14]}) );
 
 	
 	s20 add_i [0:4];

@@ -207,7 +207,6 @@ module dpd
 	generate
     for (genvar i=0; i < 15; i++)  begin: mults
         compl_mult #(.W(20)) mult_0( 
-			.clk	(clk), 
 			.a		({yy_reg_i[i],yy_reg_q[i]}), 
 			.b		(fit_comp), 
 			.o		({m_i[i], m_q[i]}));
