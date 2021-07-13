@@ -9,7 +9,7 @@ module dpd_test_sig
     output logic [W-1:0] sig_q);
 
     u1 start_reg0;
-	u1 start_reg1;
+    u1 start_reg1;
     u1 start_read;
     always_ff @(posedge clk)
         begin

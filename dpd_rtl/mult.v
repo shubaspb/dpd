@@ -16,7 +16,7 @@ module mult
     always@(posedge clk)
     begin
         o_full <= a*b;
-		o <= o_full[WA+WB-1:WA+WB-WO];
+        o <= o_full[WA+WB-1:WA+WB-WO];
     end
     
 

@@ -1,23 +1,23 @@
 
 module mag_complex(
-    input    	clk,
+    input       clk,
     input  s20  sig_in_i,   
-	input  s20  sig_in_q, 
-    output u20	magn      
+    input  s20  sig_in_q, 
+    output u20  magn      
     );  
-	
+    
     localparam NUMS = 12;  // number of stages
-	
+    
     s24 sig_i;
     s24 sig_q; 
     s24 s_i;
     s24 s_q;
-	always_comb begin
-		sig_i = {sig_in_i, 4'd0};
-		sig_q = {sig_in_q, 4'd0};
-		s_i = {sig_i[23], sig_i[23:1]};          
-		s_q = {sig_q[23], sig_q[23:1]};
-	end
+    always_comb begin
+        sig_i = {sig_in_i, 4'd0};
+        sig_q = {sig_in_q, 4'd0};
+        s_i = {sig_i[23], sig_i[23:1]};          
+        s_q = {sig_q[23], sig_q[23:1]};
+    end
 
     s24 s_i_abs;            
     s24 s_q_abs; 
@@ -51,15 +51,15 @@ module mag_complex(
         end
     endgenerate
 
-	s24 norm = 24'sd5093861;
-   	s48 mag_norm;
+    s24 norm = 24'sd5093861;
+    s48 mag_norm;
     always_ff @(posedge clk)
- 		mag_norm <= i_rg[NUMS-1] * norm;
+        mag_norm <= i_rg[NUMS-1] * norm;
 
-	assign magn = mag_norm[45:26];
-	
-	
-	
+    assign magn = mag_norm[45:26];
+    
+    
+    
     
 endmodule
 
