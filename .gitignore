@@ -14,6 +14,7 @@
 !*.v
 !*.vh
 !*.sv
+!*.md
 !*.bit
 !*.ltx
 !*.xci
