@@ -1,9 +1,9 @@
 # Digital Pre-Distortion (DPD)
 
-### Based LMS adaptation
+### LMS adaptation
 
-1. /doc/ - info about DPD, results
-2. /dpd_matlab/ - matlab-model of DPD
-3. /dpd_rtl/ - rtl sources
-5. /dpd_rtl/dpd_tb/ - testbench
-4. /dpd_xilinx/ - fpga-project (xilinx ultrascale+)
+*/doc/ - info about DPD, results
+*/dpd_matlab/ - matlab-model of DPD
+*/dpd_rtl/ - rtl sources
+*/dpd_rtl/dpd_tb/ - testbench
+*/dpd_xilinx/ - fpga-project (xilinx ultrascale+)
