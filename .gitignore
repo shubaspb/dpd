@@ -3,11 +3,10 @@
 !*/
 !.gitignore
 
-
-!*.vhd
-!*.v
-!*.vh
-!*.sv
+# hdl files in sources dir only
+!/dpd_rtl/**/*.v
+!/dpd_rtl/**/*.vh
+!/dpd_rtl/**/*.sv
 !*.md
 !*.bit
 !*.ltx
@@ -25,3 +24,10 @@
 !*.txt
 !*.jpg
 
+# exclude this:
+/dpd_xilinx/**/*.txt
+/dpd_xilinx/project_2/**/
+/dpd_xilinx/rtl/**/*.xdc
+# include main
+!dpd_xilinx/rtl/main.sv
+!dpd_xilinx/rtl/qqq.sv
