@@ -10,8 +10,8 @@
 !*.md
 !*.bit
 !*.ltx
-!*.xci
-!*.xcix
+!/dpd_xilinx/rtl/**/*.xci
+!/dpd_xilinx/rtl/**/*.xcix
 !*.mem
 !*.xdc
 !*.tcl
@@ -28,6 +28,5 @@
 /dpd_xilinx/**/*.txt
 /dpd_xilinx/project_2/**/
 /dpd_xilinx/rtl/**/*.xdc
-# include main
+# include main for project
 !dpd_xilinx/rtl/main.sv
-!dpd_xilinx/rtl/qqq.sv
