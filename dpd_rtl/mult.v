@@ -10,8 +10,7 @@ module mult
 
 reg signed [WA+WB-1:0] o_full;
 
-always@(posedge clk)
-begin
+always@(posedge clk) begin
     o_full <= a*b;
     o <= o_full[WA+WB-1:WA+WB-WO];
 end

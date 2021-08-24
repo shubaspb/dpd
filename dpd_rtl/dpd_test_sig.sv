@@ -10,12 +10,11 @@ module dpd_test_sig
 u1 start_reg0;
 u1 start_reg1;
 u1 start_read;
-always_ff @(posedge clk)
-    begin
-        start_reg0 <= start;
-        start_reg1 <= start_reg0;
-        start_read <= start_reg0 & (~start_reg1);
-    end
+always_ff @(posedge clk) begin
+    start_reg0 <= start;
+    start_reg1 <= start_reg0;
+    start_read <= start_reg0 & (~start_reg1);
+end
 
 u10 cnt;
 always_ff @(posedge clk, negedge reset_b)

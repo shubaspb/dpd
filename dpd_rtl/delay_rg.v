@@ -6,7 +6,6 @@ module delay_rg
     input [W-1:0] data_in,
     output [W-1:0] data_out);
 
-
 reg [W-1:0] rg [0:D-1]; 
 always @ (posedge clk) begin : delay_line
     integer i;

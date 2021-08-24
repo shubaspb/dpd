@@ -18,7 +18,6 @@ module dpd
     output s20  sig_out_i,  // signal to amplifier, real part 
     output s20  sig_out_q); // signal to amplifier, image part
 
-
 /////////////// Control /////////////////////////////////////////////////////////// 
 u1 dpd_ad0;
 u1 dpd_ad1;
@@ -32,7 +31,7 @@ end
 
 u16 cnt;
 always_ff @(posedge clk, negedge reset_b)
-    if (~reset_b) begin 
+    if (!reset_b) begin 
         cnt <= '1;
     end else begin
         if (start_adapt)
@@ -45,7 +44,7 @@ u1 dpd_adapt_sig;
 u1 dpd_adapt_coeff;
 u1 dpd_adapt_sw_in;
 always_ff @(posedge clk, negedge reset_b)
-    if (~reset_b) begin 
+    if (!reset_b) begin 
         dpd_adapt_sig <= '0;
         dpd_adapt_coeff <= '0;
         dpd_adapt_sw_in <= '0;
@@ -107,11 +106,11 @@ delay_rg #(.W(40), .D(DELAY)) delay_rg_inst
 ///// the adaptation time is multiplied by 2 ///////////////////////////////////////////////////
 u1 on_off;
 always_ff @(posedge clk, negedge reset_b)
-if (!reset_b) begin
-    on_off <= 1'd0;
-end else begin
-    on_off <= ~on_off;
-end 
+    if (!reset_b) begin
+        on_off <= 1'd0;
+    end else begin
+        on_off <= ~on_off;
+    end 
 
 s20 sig_dpd_reg_i;
 s20 sig_dpd_reg_q;
@@ -126,18 +125,18 @@ ff #(.W(20)) ff9 (.clk, .d(sig_del_q), .q(sig_del_reg_q));
 s20 yy_reg_i [0:14];
 s20 yy_reg_q [0:14];
 always_ff @(posedge clk, negedge reset_b)
-if (!reset_b) begin
-    for (int i=0; i<15; i++)
-        {yy_reg_i[i], yy_reg_q[i]} <= {'0, '0};
-end else begin
-    if (on_off) begin
-        for (int i=0; i<=15; i++)
-            {yy_reg_i[i], yy_reg_q[i]} <= {yy.i[i], yy.q[i]};
-    end else begin
+    if (!reset_b) begin
         for (int i=0; i<15; i++)
             {yy_reg_i[i], yy_reg_q[i]} <= {'0, '0};
+    end else begin
+        if (on_off) begin
+            for (int i=0; i<=15; i++)
+                {yy_reg_i[i], yy_reg_q[i]} <= {yy.i[i], yy.q[i]};
+        end else begin
+            for (int i=0; i<15; i++)
+                {yy_reg_i[i], yy_reg_q[i]} <= {'0, '0};
+        end
     end
-end
 
 /////////////////// FIT LMS /////////////////////////////////////////////////////////////////
 s20 fit1_i;
@@ -174,23 +173,23 @@ endgenerate
 s20 cc_i [0:14];
 s20 cc_q [0:14];
 always_ff @(posedge clk, negedge reset_b)
-if (!reset_b) begin
-    for (int i=0; i<3; i++) begin
-        cc_i[i] <= 20'd349500;
-        cc_q[i] <= 20'd0;
-    end 
-    for (int i=3; i<15; i++) begin
-        cc_i[i] <= '0;
-        cc_q[i] <= '0;
-    end
-end else begin
-    if (dpd_adapt_coeff) begin
-        for (int i=0; i<=15; i++) begin
-            cc_i[i] <= cc_i[i] + m_i[i];
-            cc_q[i] <= cc_q[i] + m_q[i];
+    if (!reset_b) begin
+        for (int i=0; i<3; i++) begin
+            cc_i[i] <= 20'd349500;
+            cc_q[i] <= 20'd0;
+        end 
+        for (int i=3; i<15; i++) begin
+            cc_i[i] <= '0;
+            cc_q[i] <= '0;
+        end
+    end else begin
+        if (dpd_adapt_coeff) begin
+            for (int i=0; i<=15; i++) begin
+                cc_i[i] <= cc_i[i] + m_i[i];
+                cc_q[i] <= cc_q[i] + m_q[i];
+            end
         end
     end
-end
 
 always_comb begin
     for (int i=0; i<=15; i++) begin
@@ -231,7 +230,6 @@ always_ff @(posedge clk, negedge reset_b)
 //      .probe11    ( fit3_i            )
 //  );
 
-    
 ////////////////////////////// WRITE FILE ////////////////////////////////////
 //  integer write_data;
 //  initial begin
@@ -241,6 +239,5 @@ always_ff @(posedge clk, negedge reset_b)
 //  always_ff @(posedge clk) begin
 //      $fdisplay(write_data, "%d,%d,%d,%d", sig_del_i, sig_del_q, sig_dpd_i, sig_dpd_q);
 //  end 
-
 
 endmodule

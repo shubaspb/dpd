@@ -15,14 +15,12 @@ always_comb begin
 end
 
 always_ff @(posedge clk)
-    begin
-        if (q_in[23]) begin
-            i_out <= i_in - q_shift;
-            q_out <= q_in + i_shift;
-        end else begin
-            i_out <= i_in + q_shift;
-            q_out <= q_in - i_shift;
-        end
+    if (q_in[23]) begin
+        i_out <= i_in - q_shift;
+        q_out <= q_in + i_shift;
+    end else begin
+        i_out <= i_in + q_shift;
+        q_out <= q_in - i_shift;
     end
 
 endmodule

@@ -39,13 +39,12 @@ always_ff @(posedge clk) begin
     magn_4_full <= magn_2*magn_2;
 end 
 
-always_ff @(posedge clk)
-    begin
-        mag_0 <= 20'd524287;
-        mag_1 <= magn_1_del2[19:0];
-        mag_2 <= magn_2_del1[19:0];
-        mag_3 <= magn_3_full[38:19]+magn_3_full[18];
-        mag_4 <= magn_4_full[38:19]+magn_4_full[18];
-    end
+always_ff @(posedge clk) begin
+    mag_0 <= 20'd524287;
+    mag_1 <= magn_1_del2[19:0];
+    mag_2 <= magn_2_del1[19:0];
+    mag_3 <= magn_3_full[38:19]+magn_3_full[18];
+    mag_4 <= magn_4_full[38:19]+magn_4_full[18];
+end
 
 endmodule

@@ -20,21 +20,20 @@ end
 
 s24 s_i_abs;
 s24 s_q_abs; 
-always @(posedge clk)
-    begin
-        s_i_abs <= (s_i[23]) ? (-s_i) : s_i;
-        s_q_abs <= (s_q[23]) ? (-s_q) : s_q;
-    end
+always @(posedge clk) begin
+    s_i_abs <= (s_i[23]) ? (-s_i) : s_i;
+    s_q_abs <= (s_q[23]) ? (-s_q) : s_q;
+end
 
 s24 i_rg [0:NUMS-1];
 s24 q_rg [0:NUMS-1];
 s24 a_rg [0:NUMS-1];
 mag_complex_stage  #(.NUM_STAGE(0)) mag_complex_stage_inst0 (
-    .clk        (clk        ),
-    .i_in       (s_i_abs    ),
-    .q_in       (s_q_abs    ),
-    .i_out      (i_rg[0]    ),
-    .q_out      (q_rg[0]    )
+    .clk    (clk        ),
+    .i_in   (s_i_abs    ),
+    .q_in   (s_q_abs    ),
+    .i_out  (i_rg[0]    ),
+    .q_out  (q_rg[0]    )
 );
 
 genvar i;
@@ -56,5 +55,6 @@ always_ff @(posedge clk)
     mag_norm <= i_rg[NUMS-1] * norm;
 
 assign magn = mag_norm[45:26];
+
 
 endmodule

@@ -20,7 +20,7 @@ mag_5 mag_5_inst(
     .mag_4      (mag[4])
     );
 
-s20 sig_in_i_del; 
+s20 sig_in_i_del;
 delay_rg #(.W(20), .D(16)) delay_rg_inst1
    (.clk        (clk    ),
     .data_in    (sig_in_i),
@@ -35,37 +35,36 @@ delay_rg #(.W(20), .D(16)) delay_rg_inst2
 s20 sm_i [0:4];
 s20 sm_q [0:4];
 
-mult #(.WA(20),.WB(20),.WO(20)) mult_0 (.clk(clk), .a(sig_in_i_del), .b(mag[0]), .o(sm_i[0]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_1 (.clk(clk), .a(sig_in_q_del), .b(mag[0]), .o(sm_q[0]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_2 (.clk(clk), .a(sig_in_i_del), .b(mag[1]), .o(sm_i[1]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_3 (.clk(clk), .a(sig_in_q_del), .b(mag[1]), .o(sm_q[1]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_4 (.clk(clk), .a(sig_in_i_del), .b(mag[2]), .o(sm_i[2]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_5 (.clk(clk), .a(sig_in_q_del), .b(mag[2]), .o(sm_q[2]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_6 (.clk(clk), .a(sig_in_i_del), .b(mag[3]), .o(sm_i[3]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_7 (.clk(clk), .a(sig_in_q_del), .b(mag[3]), .o(sm_q[3]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_8 (.clk(clk), .a(sig_in_i_del), .b(mag[4]), .o(sm_i[4]) );
-mult #(.WA(20),.WB(20),.WO(20)) mult_9 (.clk(clk), .a(sig_in_q_del), .b(mag[4]), .o(sm_q[4]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_0 ( .clk(clk), .a(sig_in_i_del), .b(mag[0]), .o(sm_i[0]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_1 ( .clk(clk), .a(sig_in_q_del), .b(mag[0]), .o(sm_q[0]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_2 ( .clk(clk), .a(sig_in_i_del), .b(mag[1]), .o(sm_i[1]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_3 ( .clk(clk), .a(sig_in_q_del), .b(mag[1]), .o(sm_q[1]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_4 ( .clk(clk), .a(sig_in_i_del), .b(mag[2]), .o(sm_i[2]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_5 ( .clk(clk), .a(sig_in_q_del), .b(mag[2]), .o(sm_q[2]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_6 ( .clk(clk), .a(sig_in_i_del), .b(mag[3]), .o(sm_i[3]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_7 ( .clk(clk), .a(sig_in_q_del), .b(mag[3]), .o(sm_q[3]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_8 ( .clk(clk), .a(sig_in_i_del), .b(mag[4]), .o(sm_i[4]) );
+mult #(.WA(20),.WB(20),.WO(20)) mult_9 ( .clk(clk), .a(sig_in_q_del), .b(mag[4]), .o(sm_q[4]) );
 
 u40 rg0 [0:2];
 u40 rg1 [0:2];
 u40 rg2 [0:2];
 u40 rg3 [0:2];
 u40 rg4 [0:2];
-always_ff @ (posedge clk)
-    begin
-        rg0[0] <= {sm_i[0], sm_q[0]};
-        rg1[0] <= {sm_i[1], sm_q[1]};
-        rg2[0] <= {sm_i[2], sm_q[2]};
-        rg3[0] <= {sm_i[3], sm_q[3]};
-        rg4[0] <= {sm_i[4], sm_q[4]};
-        for(int i=0; i<3; i++) begin
-            rg0[i+1] <= rg0[i];
-            rg1[i+1] <= rg1[i];
-            rg2[i+1] <= rg2[i];
-            rg3[i+1] <= rg3[i];
-            rg4[i+1] <= rg4[i];
-        end
+always_ff @ (posedge clk) begin
+    rg0[0] <= {sm_i[0], sm_q[0]};
+    rg1[0] <= {sm_i[1], sm_q[1]};
+    rg2[0] <= {sm_i[2], sm_q[2]};
+    rg3[0] <= {sm_i[3], sm_q[3]};
+    rg4[0] <= {sm_i[4], sm_q[4]};
+    for(int i=0; i<3; i++) begin
+        rg0[i+1] <= rg0[i];
+        rg1[i+1] <= rg1[i];
+        rg2[i+1] <= rg2[i];
+        rg3[i+1] <= rg3[i];
+        rg4[i+1] <= rg4[i];
     end
+end
 
 s20 ad_i [0:14];
 s20 ad_q [0:14];
@@ -124,6 +123,5 @@ always_comb begin
     {yy.i[13], yy.q[13]} = rg4[1];
     {yy.i[14], yy.q[14]} = rg4[0];
 end
-
 
 endmodule
