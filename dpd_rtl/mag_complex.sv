@@ -1,3 +1,5 @@
+// Copyright (c) 2018, Dmitrii Shubin
+// magnitude of complex signal based on CORDIC
 
 module mag_complex(
     input       clk,
