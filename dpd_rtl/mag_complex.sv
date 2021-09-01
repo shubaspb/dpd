@@ -1,4 +1,4 @@
-// Copyright (c) 2018, Dmitrii Shubin
+// Copyright (c) 2018, Dmitry Shubin
 // magnitude of complex signal based on CORDIC
 
 module mag_complex(

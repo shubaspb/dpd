@@ -1,4 +1,4 @@
-// Copyright (c) 2018, Dmitrii Shubin
+// Copyright (c) 2018, Dmitry Shubin
 // Digital Pre-distortion 
 // LMS adaptation
 // time adaptation = 50 us

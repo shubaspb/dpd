@@ -1,4 +1,4 @@
-// Copyright (c) 2018, Dmitrii Shubin
+// Copyright (c) 2018, Dmitry Shubin
 // digital pre-distortion core (memory - 3 cycles, polinome degree - 5)
 
 module dpd_mem3
