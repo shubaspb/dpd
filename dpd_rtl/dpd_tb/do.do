@@ -2,19 +2,19 @@
 vlib work
 
 set dir "../../dpd_rtl" 
+set dir_lib "../../../dspb/" 
 
 vlog -sv {*}$dir/package_dpd.svh +incdir+$dir
 
 vlog -mfcu\
 {*}$dir/dpd.sv\
 {*}$dir/dpd_mem3.sv\
-{*}$dir/mag_complex.sv\
-{*}$dir/mag_complex_stage.sv\
 {*}$dir/mag_5.sv\
-{*}$dir/mult.v\
-{*}$dir/compl_mult.v\
-{*}$dir/delay_rg.v\
 {*}$dir/dpd_test_sig.sv\
+{*}$dir_lib/delay_rg.v\
+{*}$dir_lib/compl_mult.v\
+{*}$dir_lib/mult.v\
+{*}$dir_lib/polar_cordic.v\
 gen_signal.sv\
 dds_signal_generator.v\
 dpd_tb.sv\
@@ -67,7 +67,6 @@ set s32 "add wave -color Green -analog-interpolated -min -1000000000 -max 100000
 {*}$dec dpd_tb/sig_in_q 
 
 add wave sim:/dpd_tb/dpd_inst/dpd_mem3_inst2/mag_5_inst/*
-
 
 run 200 us
 

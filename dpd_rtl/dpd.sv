@@ -71,13 +71,14 @@ s20 sig_dpd_q;
 intf_coef_3_5 coeff_fit();
 intf_coef_3_5 yy();
 dpd_mem3 dpd_mem3_inst2(
-    .clk       (clk),
-    .sig_in_i  (sig_fit_in_i),
-    .sig_in_q  (sig_fit_in_q),
-    .sig_out_i (sig_dpd_i),
-    .sig_out_q (sig_dpd_q),
-    .coeff     (coeff_fit),
-    .yy        (yy)
+    .reset_b    (reset_b),
+    .clk        (clk),
+    .sig_in_i   (sig_fit_in_i),
+    .sig_in_q   (sig_fit_in_q),
+    .sig_out_i  (sig_dpd_i),
+    .sig_out_q  (sig_dpd_q),
+    .coeff      (coeff_fit),
+    .yy         (yy)
 );
 
 ////////////////// test signal /////////////////////////////////////////////////////////////////////
@@ -98,9 +99,10 @@ end
 s20 sig_del_i;
 s20 sig_del_q;
 delay_rg #(.W(40), .D(DELAY)) delay_rg_inst
-   (.clk        (clk),
-    .data_in    (sig_train_all),
-    .data_out   ({sig_del_i,sig_del_q}));
+   (.reset_b(reset_b),
+    .clk    (clk),
+    .din    (sig_train_all),
+    .dout   ({sig_del_i,sig_del_q}));
 
 
 ///// latch feedback because its too hard to realise two complex multipliers by one cycle //////

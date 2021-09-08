@@ -125,9 +125,10 @@ always_ff @(posedge clk, negedge reset_b)
     end
 
 delay_rg #(.W(40), .D(500)) delay_rg_inst
-   (.clk     (clk     ),
-    .data_in ({sig_out_i_1,sig_out_q_1}),
-    .data_out({sig_pa_out_i,sig_pa_out_q}));
+   (.reset_b(reset_b),
+    .clk    (clk),
+    .din    ({sig_out_i_1,sig_out_q_1}),
+    .dout   ({sig_pa_out_i,sig_pa_out_q}));
 
 ///////////// magnitude /////////////////////////////////////////////////////////////////////
 u20 magn_sig_in;

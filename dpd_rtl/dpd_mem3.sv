@@ -2,7 +2,8 @@
 // digital pre-distortion core (memory - 3 cycles, polinome degree - 5)
 
 module dpd_mem3
-   (input       clk,
+   (input       reset_b,
+    input       clk,
     input   s20 sig_in_i,
     input   s20 sig_in_q,
     output  s20 sig_out_i,
@@ -12,6 +13,7 @@ module dpd_mem3
 
 s20 mag [0:4];
 mag_5 mag_5_inst(
+    .reset_b    (reset_b),
     .clk        (clk),
     .sig_in_i   (sig_in_i),
     .sig_in_q   (sig_in_q),
@@ -24,15 +26,17 @@ mag_5 mag_5_inst(
 
 s20 sig_in_i_del;
 delay_rg #(.W(20), .D(16)) delay_rg_inst1
-   (.clk        (clk    ),
-    .data_in    (sig_in_i),
-    .data_out   (sig_in_i_del));
+   (.reset_b(reset_b),
+    .clk    (clk),
+    .din    (sig_in_i),
+    .dout   (sig_in_i_del));
 
 s20 sig_in_q_del; 
 delay_rg #(.W(20), .D(16)) delay_rg_inst2
-   (.clk        (clk    ),
-    .data_in    (sig_in_q),
-    .data_out   (sig_in_q_del));
+   (.reset_b(reset_b),
+    .clk    (clk),
+    .din    (sig_in_q),
+    .dout   (sig_in_q_del));
 
 s20 sm_i [0:4];
 s20 sm_q [0:4];

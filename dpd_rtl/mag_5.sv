@@ -1,5 +1,6 @@
 
 module mag_5(
+    input       reset_b,
     input       clk,
     input  s20  sig_in_i,
     input  s20  sig_in_q,
@@ -9,13 +10,22 @@ module mag_5(
     output u20  mag_3,
     output u20  mag_4);
 
+u20 magn_0;
+polar_cordic #(.W(20)) polar_cordic_inst (
+    .reset_b    (reset_b),
+    .clk        (clk),
+    .sig_i      (sig_in_i),
+    .sig_q      (sig_in_q),
+    .magnitude  (magn_0),
+    .angle      ()
+);
+
 u20 magn_1;
-mag_complex mag_complex_inst(
-    .clk      (clk),
-    .sig_in_i (sig_in_i),
-    .sig_in_q (sig_in_q),
-    .magn     (magn_1)
-);  
+delay_rg #(.W(20), .D(11)) delay_rg_inst1
+   (.reset_b(reset_b),
+    .clk    (clk),
+    .din    (magn_0),
+    .dout   (magn_1));
 
 u40 magn_2_full;
 always_ff @(posedge clk)
