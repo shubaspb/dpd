@@ -68,17 +68,18 @@ s20 sig_pa_out_i;
 s20 sig_pa_out_q;
 s20 sig_out_i;
 s20 sig_out_q;
+u20 err_fit_mag;
 dpd #(.DELAY(540)) dpd_inst(
-    .clk        (clk),
-    .reset_b    (reset_b),
-    .dpd_adapt  (dpd_adapt),
-    .sig_in_i   (sig_in_i),
-    .sig_in_q   (sig_in_q),
-    .sig_pa_i   (sig_pa_out_i),
-    .sig_pa_q   (sig_pa_out_q),
-    .sig_out_i  (sig_out_i),
-    .sig_out_q  (sig_out_q)
-);
+    .clk            (clk),
+    .reset_b        (reset_b),
+    .dpd_adapt      (dpd_adapt),
+    .sig_in_i       (sig_in_i),
+    .sig_in_q       (sig_in_q),
+    .sig_pa_i       (sig_pa_out_i),
+    .sig_pa_q       (sig_pa_out_q),
+    .sig_out_i      (sig_out_i),
+    .sig_out_q      (sig_out_q),
+    .err_fit_mag    (err_fit_mag));
 
 ///////////////// PA model /////////////////////////////////////////////////////////////////////
 intf_coef_3_5 coeff_pa();

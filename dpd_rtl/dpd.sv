@@ -4,20 +4,23 @@
 // time adaptation = 50 us
 // polinome 5 degree, time memory - 3 cycles
 // must be: Fs > 4*signal_bandwidth , Fs is clk
+// select gain for sig_pa_i by comparing mag sig_pa and mag sig_out
+// select DELAY by minimum of err_fit_mag
 
 `include "package_dpd.svh"
 
 module dpd 
-    #(parameter DELAY = 41) // compensation for delay (transceiver + amplifier)
-   (input       clk,        // clock
-    input       reset_b,    // reset
-    input       dpd_adapt,  // 1 - turn on adaptation, 0 - regular transmission
-    input  s20  sig_in_i,   // signal from fpga, real part
-    input  s20  sig_in_q,   // signal from fpga, image part
-    input  s20  sig_pa_i,   // signal from amplifier, real part
-    input  s20  sig_pa_q,   // signal from amplifier, image part
-    output s20  sig_out_i,  // signal to amplifier, real part 
-    output s20  sig_out_q); // signal to amplifier, image part
+    #(parameter DELAY = 41)         // compensation for delay (transceiver + amplifier)
+   (input       clk,                // clock
+    input       reset_b,            // reset
+    input       dpd_adapt,          // 1 - turn on adaptation, 0 - regular transmission
+    input  s20  sig_in_i,           // signal from fpga, real part
+    input  s20  sig_in_q,           // signal from fpga, image part
+    input  s20  sig_pa_i,           // signal from amplifier, real part
+    input  s20  sig_pa_q,           // signal from amplifier, image part
+    output s20  sig_out_i,          // signal to amplifier, real part 
+    output s20  sig_out_q,          // signal to amplifier, image part
+    output u20  err_fit_mag);       // error fit delay
 
 /////////////// Control /////////////////////////////////////////////////////////// 
 u1 dpd_ad0;
@@ -157,10 +160,13 @@ always_comb begin
     fit3_q = fit2_q >>> 3;
 end
 
-u40 fit_comp; 
-always_comb begin
-    fit_comp = {fit3_i, fit3_q};
-end
+polar_cordic #(.W(20)) polar_cordic_inst5 (
+    .reset_b    (reset_b),
+    .clk        (clk),
+    .sig_i      (fit1_i),
+    .sig_q      (fit1_q),
+    .magnitude  (err_fit_mag),
+    .angle      ());
 
 s20 m_i [0:14];
 s20 m_q [0:14];
@@ -168,7 +174,7 @@ generate
 for (genvar i=0; i < 15; i++)  begin: mults
     compl_mult #(.W(20)) mult_0(
         .a      ({yy_reg_i[i],yy_reg_q[i]}),
-        .b      (fit_comp), 
+        .b      ({fit3_i, fit3_q}), 
         .o      ({m_i[i], m_q[i]}));
 end
 endgenerate
@@ -215,32 +221,5 @@ always_ff @(posedge clk, negedge reset_b)
         end
     end 
 
-/////////////////////////// LA ///////////////////////////////////////////////
-//      ila_0 ila_0_inst(
-//      .clk        (clk), 
-//      .trig_in    (reset_b),
-//      .probe0     ( sig_in_i          ),
-//      .probe1     ( sig_in_q          ),
-//      .probe2     ( sig_pa_i          ),
-//      .probe3     ( sig_pa_q          ),
-//      .probe4     ( coeff_fit.i[0]    ),
-//      .probe5     ( coeff_fit.q[0]    ),
-//      .probe6     ( sig_dpd_reg_i     ),
-//      .probe7     ( sig_dpd_reg_q     ),
-//      .probe8     ( {16'd0, dpd_adapt_sw_in, dpd_adapt_sig, dpd_adapt_coeff, dpd_adapt}),
-//      .probe9     ( sig_del_reg_i     ),
-//      .probe10    ( sig_del_reg_q     ),
-//      .probe11    ( fit3_i            )
-//  );
-
-////////////////////////////// WRITE FILE ////////////////////////////////////
-//  integer write_data;
-//  initial begin
-//      write_data = $fopen("fit.txt", "w");
-//  end
-//      
-//  always_ff @(posedge clk) begin
-//      $fdisplay(write_data, "%d,%d,%d,%d", sig_del_i, sig_del_q, sig_dpd_i, sig_dpd_q);
-//  end 
 
 endmodule

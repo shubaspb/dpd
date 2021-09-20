@@ -33,10 +33,10 @@ set lit "add wave -color Green -literal -height 2"
 set dec "add wave -color Green -literal -height 2 -radix decimal"
 set s12 "add wave -color Green -analog -min -2047 -max 2047 -height 100 -radix decimal"
 set s16 "add wave -color Green -analog -min -32767 -max 32767 -height 100 -radix decimal"
-set s20 "add wave -color Green -analog-interpolated -min -524287 -max 524287 -height 100 -radix decimal"
-set u20 "add wave -color Green -analog-interpolated -min 0 -max 1048575 -height 100 -radix unsigned"
-set s24 "add wave -color Green -analog-interpolated -min -8388607 -max 8388607 -height 100 -radix decimal"
-set s32 "add wave -color Green -analog-interpolated -min -1000000000 -max 1000000000 -height 50 -radix decimal"
+set s20 "add wave -color Green -analog -min -524287 -max 524287 -height 100 -radix decimal"
+set u20 "add wave -color Green -analog -min 0 -max 1048575 -height 100 -radix unsigned"
+set s24 "add wave -color Green -analog -min -8388607 -max 8388607 -height 100 -radix decimal"
+set s32 "add wave -color Green -analog -min -1000000000 -max 1000000000 -height 50 -radix decimal"
 ##################################################################################################
 
 
@@ -44,49 +44,9 @@ set s32 "add wave -color Green -analog-interpolated -min -1000000000 -max 100000
 {*}$bin dpd_tb/dpd_inst/dpd_adapt_sig
 {*}$bin dpd_tb/dpd_inst/dpd_adapt_coeff 
 
-{*}$s20 dpd_tb/dpd_inst/sig_del_reg_i
-{*}$s20 dpd_tb/dpd_inst/sig_dpd_reg_i
-
-{*}$s20 dpd_tb/dpd_inst/fit1_i
-{*}$s20 dpd_tb/dpd_inst/fit1_q
-
 {*}$u20 dpd_tb/magn_sig_in
 {*}$u20 dpd_tb/magn_sig_out
 {*}$u20 dpd_tb/magn_sig_pa_out
-
-{*}$s20 dpd_tb/sig_in_i
-{*}$s20 dpd_tb/sig_in_q
-
-{*}$s20 dpd_tb/sig_out_i
-{*}$s20 dpd_tb/sig_out_q
-
-{*}$s20 dpd_tb/sig_pa_out_i
-{*}$s20 dpd_tb/sig_pa_out_q
-
-{*}$dec dpd_tb/sig_in_i   
-{*}$dec dpd_tb/sig_in_q 
-
-add wave sim:/dpd_tb/dpd_inst/dpd_mem3_inst2/mag_5_inst/*
+{*}$u20 dpd_tb/err_fit_mag
 
 run 200 us
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
